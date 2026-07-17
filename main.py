@@ -82,6 +82,44 @@ def read_file():
     except Exception as e:
         print(f"something went wrong{e}")
 
+def update_file():
+    try:
+        read_file_folder()
+        file_name = input("enter a file you want to update ")
+        p = Path(file_name)
+        if p.exists() and p.is_file():
+            print("current content is :-")
+            with open(file_name,"r") as f:
+                print(f.read())
+            print("Options :-")
+            print("1. Overwrite the data")
+            print("2. Append the data")
+            choice = int(input("choose any one option"))
+            content = input("type your content here")
+            if choice == 1:
+                overwrite_data(file_name, content)
+            if choice == 2:
+                append_data(file_name,content)
+        else:
+            print("file does not exist")
+    except Exception as e:
+        print(f"something went wrong as {e}")
+
+def overwrite_data(file,cont):
+    try:
+        with open(file,"w") as f:
+            f.write(cont)
+            print("content added successfully")
+    except Exception as e:
+        print(f"something went wrong as {e}")
+def append_data(file,cont):
+    try:
+        with open(file,"a") as f:
+            f.write(cont)
+            print("content added successfully")
+    except Exception as e:
+        print(f"something went wrong as {e}")
+
 
 # ============================
 print("Options :- ")
@@ -97,7 +135,7 @@ print("8. Delete a File")
 
 #===============================
 
-choice = int(input("choose 1 Option "))
+choice = int(input("choose any one Option "))
 
 
 if choice == 1:
@@ -112,3 +150,5 @@ if choice == 5:
     create_file()
 if choice == 6:
     read_file()
+if choice == 7:
+    update_file()
