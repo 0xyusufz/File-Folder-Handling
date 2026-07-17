@@ -49,7 +49,40 @@ def delete_folder():
             print("folder does not exist")
     except Exception as e:
         print(f"something went wrong as {e}")
-            
+
+def create_file():
+    try:
+        read_file_folder()
+        file_name = input("enter a file name")
+        p = Path(file_name)
+        if not p.exists():
+            with open(file_name,"w") as f:
+                content =input("enter a content you want to write in this file or empty?")
+                if  content.lower() == "empty":
+                    f.write("")
+                else:
+                    f.write(content)
+            print("file created successfully")
+        else:
+            print("file already exists")
+    except Exception as e:
+        print(f"something went wrong {e}")
+
+def read_file():
+    try:
+        read_file_folder()
+        file_name = input("enter a file name you want to read")
+        p = Path(file_name)
+        if p.exists() and p.is_file():
+            with open(file_name,"r") as f:
+                print("your file content is :- ")
+                print(f.read())
+        else:
+            print("file does not exist")
+    except Exception as e:
+        print(f"something went wrong{e}")
+
+
 # ============================
 print("Options :- ")
 
@@ -57,6 +90,11 @@ print("1. Create a folder")
 print("2. Read files and Folder")
 print("3. Update the Folder")
 print("4. Delete the Folder")
+print("5. create a file")
+print("6. Read a File")
+print("7. Update a File")
+print("8. Delete a File")
+
 #===============================
 
 choice = int(input("choose 1 Option "))
@@ -70,3 +108,7 @@ if choice == 3:
     update_folder()
 if choice ==4:
     delete_folder()
+if choice == 5:
+    create_file()
+if choice == 6:
+    read_file()
