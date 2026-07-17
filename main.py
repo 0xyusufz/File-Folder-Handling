@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 import os
 
 
@@ -43,7 +44,7 @@ def delete_folder():
         folder_name =input("enter a name of your folder you want to delete")
         p = Path(folder_name)
         if p.exists() and p.is_dir():
-            p.rmdir()
+            shutil.rmtree(p)
             print("folder deleted successfully")
         else:
             print("folder does not exist")
@@ -84,7 +85,7 @@ def read_file():
 
 def update_file():
     try:
-        read_file_folder()
+        read_file_folder() 
         file_name = input("enter a file you want to update ")
         p = Path(file_name)
         if p.exists() and p.is_file():
@@ -94,17 +95,32 @@ def update_file():
             print("Options :-")
             print("1. Overwrite the data")
             print("2. Append the data")
+            print("3. you want to change filename?")
             choice = int(input("choose any one option"))
-            content = input("type your content here")
             if choice == 1:
+                content = input("type your content here")
                 overwrite_data(file_name, content)
             if choice == 2:
+                content = input("type your content here")
                 append_data(file_name,content)
+            if choice == 3:
+                update_file_name(file_name)
         else:
             print("file does not exist")
     except Exception as e:
         print(f"something went wrong as {e}")
 
+def update_file_name(old_filename):
+    try:
+        p = Path(old_filename)
+        new_file_name = input("enter your new file name")
+        p1 = Path(new_file_name)
+        if not p1.exists():
+            p.rename(new_file_name)
+        else:
+            print("file name already exist")
+    except Exception as e:
+        print(f"something went wrong as {e}")
 def overwrite_data(file,cont):
     try:
         with open(file,"w") as f:
@@ -120,6 +136,18 @@ def append_data(file,cont):
     except Exception as e:
         print(f"something went wrong as {e}")
 
+
+def delete_folder_file():
+    try:
+        name = input("enter a file u want to delete")
+        p = Path(name)
+        if p.exists() and p.is_file():
+            p.unlink(p)
+            print("file deleted successfully")
+        else:
+            print("file doesnot exist")
+    except Exception as e:
+        print(f"somethinf went wrong as {e}")
 
 # ============================
 print("Options :- ")
@@ -152,3 +180,5 @@ if choice == 6:
     read_file()
 if choice == 7:
     update_file()
+if choice == 8:
+    delete_folder_file()
